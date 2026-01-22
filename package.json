@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "allure:report": "allure generate test-results/allure-results -o test-results/allure-report --clean && allure open test-results/allure-report"
-
   },
   "keywords": [],
   "author": "",
@@ -18,6 +17,7 @@
   },
   "dependencies": {
     "cross-env": "^10.1.0",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "xlsx": "^0.18.5"
   }
 }

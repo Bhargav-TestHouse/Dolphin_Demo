@@ -1,4 +1,5 @@
 import { Page, test } from "@playwright/test";
+import * as XLSX from "xlsx";
 
 export class Utility {
   private page: Page;
@@ -6,6 +7,14 @@ export class Utility {
     this.page = page;
   }
 }
+
+export type LoginTestRow = {
+  email: string;
+  password: string;
+  validity: string;
+  run: string;
+  env: string;
+};
 
 export function delay(second: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, second * 1000));
@@ -26,4 +35,16 @@ export function step(stepName?: string) {
       });
     };
   };
+}
+
+/**
+ * Reads test data from Excel
+ */
+export function readExcelData<T>(
+  filePath: string,
+  sheetName: string
+): T[] {
+  const workbook = XLSX.readFile(filePath);
+  const worksheet = workbook.Sheets[sheetName];
+  return XLSX.utils.sheet_to_json<T>(worksheet);
 }

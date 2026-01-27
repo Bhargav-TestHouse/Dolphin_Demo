@@ -3,7 +3,7 @@
 */
 
 import { test, expect } from "@playwright/test";
-import { readExcelData, LoginTestRow } from "../utilities/utility";
+import { readExcelData, readEnvControl, LoginTestRow } from "../utilities/utility";
 import { shouldExecute } from "../utilities/executionControl";
 
 // // Read test data from Excel file
@@ -19,7 +19,12 @@ import { shouldExecute } from "../utilities/executionControl";
 // console.log(loginTestData);
 const loginTestData = readExcelData<LoginTestRow>(
   "testdata/data-UAT.xlsx",
-  "Sheet1"
+  "LoginData"
+);
+
+const envControl = readEnvControl(
+  "testdata/data-UAT.xlsx",
+  "EnvControl"
 );
 
 
@@ -34,7 +39,7 @@ test.describe("Login data driven tests", () => {
         const {email, password, validity, run, env} = row as {email: string, password: string, validity: string, run: string, env: string};        
     
     test(`Login test${email} and ${password}`, async ({page}) => {
-      if (!shouldExecute(row)) {
+      if (!shouldExecute(row, envControl)) {
         test.skip(
           true,
           `Skipped via Excel → run=${row.run}, env=${row.env}`

@@ -16,6 +16,11 @@ export type LoginTestRow = {
   env: string;
 };
 
+export type EnvControlRow = {
+  env: string;
+  execute: string;
+};
+
 export function delay(second: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, second * 1000));
 }
@@ -47,4 +52,28 @@ export function readExcelData<T>(
   const workbook = XLSX.readFile(filePath);
   const worksheet = workbook.Sheets[sheetName];
   return XLSX.utils.sheet_to_json<T>(worksheet);
+}
+
+/**
+ * Reads EnvControl sheet and returns env → enabled map
+ */
+export function readEnvControl(
+  filePath: string,
+  sheetName: string
+): Map<string, boolean> {
+  const workbook = XLSX.readFile(filePath);
+  const worksheet = workbook.Sheets[sheetName];
+
+  const rows = XLSX.utils.sheet_to_json<EnvControlRow>(worksheet);
+
+  const envMap = new Map<string, boolean>();
+
+  for (const row of rows) {
+    envMap.set(
+      row.env.trim().toLowerCase(),
+      row.execute.trim().toLowerCase() === "yes"
+    );
+  }
+
+  return envMap;
 }

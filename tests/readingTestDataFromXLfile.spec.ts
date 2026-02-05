@@ -17,15 +17,10 @@ import { shouldExecute } from "../utilities/executionControl";
 // //Convert sheet data to JSON
 // const loginTestData: any = XLSX.utils.sheet_to_json(worksheet);
 // console.log(loginTestData);
-const loginTestData = readExcelData<LoginTestRow>(
-  "testdata/data-UAT.xlsx",
-  "LoginData"
-);
+const excelPath = "testdata/data-UAT.xlsx";
+const loginTestData = readExcelData<LoginTestRow>(excelPath, "LoginData");
 
-const envControl = readEnvControl(
-  "testdata/data-UAT.xlsx",
-  "EnvControl"
-);
+const envControl = readEnvControl(excelPath, "EnvControl");
 
 
 console.log(loginTestData);

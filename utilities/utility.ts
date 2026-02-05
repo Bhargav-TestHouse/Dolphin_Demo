@@ -21,6 +21,13 @@ export type EnvControlRow = {
   execute: string;
 };
 
+export type AddToCartRow = {
+  baseURL: string;
+  email: string;
+  password: string;
+  productname: string;
+};
+
 export function delay(second: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, second * 1000));
 }

@@ -1,4 +1,4 @@
-import { Page, test } from "@playwright/test";
+import { expect, Page, test } from "@playwright/test";
 import * as XLSX from "xlsx";
 
 export class Utility {
@@ -98,4 +98,27 @@ export function readEnvControl(
   }
 
   return envMap;
+}
+
+export async function takeStepScreenshot(
+  page: Page,
+  testCaseId: string,
+  stepName: string
+) {
+  await page.waitForLoadState("domcontentloaded");
+  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("load");
+
+  await page.evaluate(() => {
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resolve);
+      });
+    });
+  });
+
+  await expect(page).toHaveScreenshot(`${testCaseId}_${stepName}.png`, {
+    maxDiffPixelRatio: 0.05,
+    animations: "disabled",
+  });
 }

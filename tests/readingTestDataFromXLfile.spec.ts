@@ -23,8 +23,8 @@ const loginTestData = readExcelData<LoginTestRow>(excelPath, "LoginData");
 const envControl = readEnvControl(excelPath, "EnvControl");
 
 
-console.log(loginTestData);
-console.log("CURRENT ENV =", process.env.ENV);
+// console.log(loginTestData);
+// console.log("CURRENT ENV =", process.env.ENV);
 
 
 

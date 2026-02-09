@@ -28,6 +28,21 @@ export type AddToCartRow = {
   productname: string;
 };
 
+export interface WebflowTestRow {
+  run: string;
+  BranchCode: string;
+  FolderNo: string;
+  DropDown: string;
+  Airline: string;
+  StartPoint: string;
+  EndPoint: string;
+  Class: string;
+  IssueDate: string;
+  Sell: string;
+  FlightNo: string;
+  DropDown1: string;
+}
+
 export function delay(second: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, second * 1000));
 }

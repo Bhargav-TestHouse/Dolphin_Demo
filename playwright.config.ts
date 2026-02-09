@@ -10,7 +10,7 @@ import { dot } from "node:test/reporters";
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-const env = process.env.ENV || "uat";
+const env = process.env.ENV || "qaErnie";
 dotenv.config({ path: `.env.${env.toLowerCase()}`});
 
 
@@ -19,9 +19,10 @@ dotenv.config({ path: `.env.${env.toLowerCase()}`});
  */
 export default defineConfig({
   testDir: "./tests",
-  timeout: 90000,
+   globalSetup: "./utilities/global-setup.ts",
+  timeout: 160000,
   /* Run tests in files in parallel */
-  fullyParallel: false,
+  fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -43,7 +44,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     launchOptions: {
-      slowMo: 300,
+      slowMo: 900,
     },
     trace: "on-first-retry",
     screenshot: "on",
@@ -58,10 +59,10 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
     // {
     //   name: 'webkit',

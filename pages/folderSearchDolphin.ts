@@ -184,13 +184,13 @@ export class FolderSearchDolphin {
       .locator(this.startDateInput)
       .inputValue();
     console.log("Start Date value is: " + startDate_Value);
-    await expect(startDate_Value).toBe("09FEB26");
+    await expect(startDate_Value).toBe("10FEB26");
     await this.page.keyboard.press("H");
     const startDate_Value1 = await this.page
       .locator(this.startDateInput)
       .inputValue();
     console.log("Start Date new value is: " + startDate_Value1);
-    await expect(startDate_Value1).toBe("09MAR26");
+    await expect(startDate_Value1).toBe("10MAR26");
 
     await this.page.locator(this.startTimeInput).click();
     await this.page.keyboard.type("1930");
@@ -201,13 +201,13 @@ export class FolderSearchDolphin {
       .locator(this.endDateInput)
       .inputValue();
     console.log("End Date value is: " + endDate_Value);
-    await expect(endDate_Value).toBe("09MAR26");
+    await expect(endDate_Value).toBe("10MAR26");
     await this.page.keyboard.type("A");
     const endDate_Value1 = await this.page
       .locator(this.endDateInput)
       .inputValue();
     console.log("End Date value is: " + endDate_Value1);
-    await expect(endDate_Value1).toBe("10MAR26");
+    await expect(endDate_Value1).toBe("11MAR26");
 
     await this.page.locator(this.endTimeInput).click();
     await this.page.keyboard.type("0745");

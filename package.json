@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "allure:report": "allure generate test-results/allure-results -o test-results/allure-report --clean && allure open test-results/allure-report"
+    "allure:report": "npx allure generate --clean -o test-results/allure-report test-results/allure-results && npx allure open test-results/allure-report"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,9 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.8",
-    "allure-playwright": "^3.4.4"
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.5",
+    "browserstack-node-sdk": "^1.49.3"
   },
   "dependencies": {
     "cross-env": "^10.1.0",

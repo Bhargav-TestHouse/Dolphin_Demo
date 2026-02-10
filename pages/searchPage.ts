@@ -163,4 +163,34 @@ export class SearchPage {
     async verifyVendorTransactions() {
         await expect(this.vendorTransactions).toBeVisible();
     }
+
+    @step("Take screenshot of folder search results page")
+    async takeFolderSearchResultsScreenshot() {
+        await expect(this.page)
+            .toHaveScreenshot(["ScreenshotsForTC003", "folderSearchResults.png"]);
+    }
+
+    @step("Take screenshot of opened folder page")
+    async takeFolderOpenedScreenshot() {
+        await expect(this.page)
+            .toHaveScreenshot(["ScreenshotsForTC003", "folderOpened.png"]);
+    }
+
+    @step("Take screenshot of items tab page")
+    async takeItemsTabScreenshot() {
+        await expect(this.page)
+            .toHaveScreenshot(["ScreenshotsForTC003", "itemsTab.png"]);
+    }
+
+    @step("Take screenshot of misc data page")
+    async takeMiscDataScreenshot() {
+        await expect(this.page)
+            .toHaveScreenshot(["ScreenshotsForTC003", "miscData.png"]);
+    }
+
+    @step("Take screenshot of vendor transactions page")
+    async takeVendorTransactionsScreenshot() {
+        await expect(this.page)
+            .toHaveScreenshot(["ScreenshotsForTC003", "vendorTransactions.png"]);
+    }
 }

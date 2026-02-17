@@ -1,4 +1,4 @@
-import { Page, test } from "@playwright/test";
+import { Page, test, expect } from "@playwright/test";
 import * as XLSX from "xlsx";
 
 export class Utility {
@@ -99,3 +99,70 @@ export function readEnvControl(
 
   return envMap;
 }
+
+export function getTodayDate_DDMMMYY(): string {
+  const date = new Date();
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  const year = String(date.getFullYear()).slice(-2);
+
+  return `${day}${month}${year}`;
+}
+
+export function getDateOneMonthFromToday(): string {
+  const date = new Date();
+
+  // Add 1 month
+  date.setMonth(date.getMonth() + 1);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  const year = String(date.getFullYear()).slice(-2);
+
+  return `${day}${month}${year}`;
+}
+
+export function getDateOneMonthAndOneDayFromToday(): string {
+  const date = new Date();
+
+  // Add 1 month and 1 day
+  date.setMonth(date.getMonth() + 1);
+  date.setDate(date.getDate() + 1);
+
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = date
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  const year = String(date.getFullYear()).slice(-2);
+
+  return `${day}${month}${year}`;
+}
+
+ export async function takeStepScreenshot(
+  page: Page,
+  testCaseId: string,
+  stepName: string
+) {
+  await page.waitForLoadState("domcontentloaded");
+  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("load");
+
+  await page.evaluate(() => {
+    return new Promise((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(resolve);
+      });
+    });
+  });
+
+  await expect(page).toHaveScreenshot(`${testCaseId}_${stepName}.png`, {
+    maxDiffPixelRatio: 0.5,
+    animations: "disabled",
+  });
+
+}
+

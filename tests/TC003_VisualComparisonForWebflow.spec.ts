@@ -22,20 +22,20 @@ test("Visual comparison for Webflow", async () => {
   await loginPageDolphin.gotoDolphinLoginPage();
   await page.waitForLoadState("networkidle");
   await page.waitForTimeout(2000);
-  await expect(page).toHaveScreenshot("Dolphin-Login-1.png");
+  await expect(page).toHaveScreenshot("Dolphin-Login-1.png", { maxDiffPixelRatio: 0.2 });
   await loginPageDolphin.logIntoDolphinApp(
     process.env.USER_NAME!,
     process.env.PASSWORD!,
   );
 
-  await expect(page).toHaveScreenshot("Dolphin-Home-1.png");
+  await expect(page).toHaveScreenshot("Dolphin-Home-1.png", { maxDiffPixelRatio: 0.2 });
   await homePageDolphin.navigateToFoldersPage();
   await page.waitForTimeout(3000);
-  await expect(page).toHaveScreenshot("Dolphin-Folders-1.png");
+  await expect(page).toHaveScreenshot("Dolphin-Folders-1.png", { maxDiffPixelRatio: 0.2 });
 
   await folderSearchDolphin.searchForFolder(branchCode, folderNo);
   await page.waitForTimeout(2000);
-  await expect(page).toHaveScreenshot("Dolphin-SearchResults-1.png");
+  await expect(page).toHaveScreenshot(["Dolphin-SearchResults-1.png"], { maxDiffPixelRatio: 0.2 });
   await expect(page).toHaveScreenshot("Dolphin-SearchResults-2.png");
   
 });

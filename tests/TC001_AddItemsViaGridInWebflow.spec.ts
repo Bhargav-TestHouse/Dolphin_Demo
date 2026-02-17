@@ -58,7 +58,7 @@ test("Add items via Grid in Webflow", async () => {
 
     await folderSearchDolphin.deletingAddedItem();
     await folderSearchDolphin.deletingAddedItem();
-    //await folderSearchDolphin.deletingAddedItemViaKeyboard();
+
     await folderSearchDolphin.savingFolderFromSaveButton();
     await folderSearchDolphin.verifyAllItemsAreDeleted();
   }

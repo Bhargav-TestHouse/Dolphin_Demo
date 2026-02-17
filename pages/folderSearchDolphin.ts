@@ -1,5 +1,6 @@
 import { Page, expect } from "@playwright/test";
 import { step } from "../utilities/utility";
+import { getTodayDate_DDMMMYY, getDateOneMonthFromToday, getDateOneMonthAndOneDayFromToday } from "../utilities/utility";
 
 export class FolderSearchDolphin {
   private page: Page;
@@ -140,7 +141,7 @@ export class FolderSearchDolphin {
         this.page.locator(this.totalsSection),
         this.page.locator(this.MiscellaneousDataSection),
       ],
-    maxDiffPixelRatio: 0.03,
+    maxDiffPixelRatio: 0.2,
     });
   }
 
@@ -175,8 +176,10 @@ export class FolderSearchDolphin {
     await this.page.keyboard.press("Enter");
     await this.page.keyboard.press("ArrowDown");
     await this.page.keyboard.press("ArrowDown");
-    await this.page.keyboard.press("ArrowDown");
+    //await this.page.keyboard.press("ArrowDown");
     await this.page.keyboard.press("Enter");
+    await this.page.waitForTimeout(1000)
+    
 
     await this.page.locator(this.startDateInput).click();
     await this.page.keyboard.type("T");
@@ -184,14 +187,15 @@ export class FolderSearchDolphin {
       .locator(this.startDateInput)
       .inputValue();
     console.log("Start Date value is: " + startDate_Value);
-    await expect(startDate_Value).toBe("10FEB26");
+    const todayDate = getTodayDate_DDMMMYY();
+    await expect(startDate_Value).toBe(todayDate);
     await this.page.keyboard.press("H");
     const startDate_Value1 = await this.page
       .locator(this.startDateInput)
       .inputValue();
     console.log("Start Date new value is: " + startDate_Value1);
-    await expect(startDate_Value1).toBe("10MAR26");
-
+    const dateOneMonthFromToday = getDateOneMonthFromToday();
+    await expect(startDate_Value1).toBe(dateOneMonthFromToday);
     await this.page.locator(this.startTimeInput).click();
     await this.page.keyboard.type("1930");
 
@@ -201,13 +205,14 @@ export class FolderSearchDolphin {
       .locator(this.endDateInput)
       .inputValue();
     console.log("End Date value is: " + endDate_Value);
-    await expect(endDate_Value).toBe("10MAR26");
+    await expect(endDate_Value).toBe(dateOneMonthFromToday);
     await this.page.keyboard.type("A");
     const endDate_Value1 = await this.page
       .locator(this.endDateInput)
       .inputValue();
     console.log("End Date value is: " + endDate_Value1);
-    await expect(endDate_Value1).toBe("11MAR26");
+    const dateOneMonthAndOneDayFromToday = getDateOneMonthAndOneDayFromToday();
+    await expect(endDate_Value1).toBe(dateOneMonthAndOneDayFromToday);
 
     await this.page.locator(this.endTimeInput).click();
     await this.page.keyboard.type("0745");

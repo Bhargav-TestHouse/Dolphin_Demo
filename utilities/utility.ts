@@ -1,4 +1,5 @@
 import { Page, test, expect } from "@playwright/test";
+import { allure } from "allure-playwright";
 import * as XLSX from "xlsx";
 
 export class Utility {
@@ -50,15 +51,26 @@ export function delay(second: number): Promise<void> {
 
 //Exporting decorators function for Steps Name
 export function step(stepName?: string) {
-  return function decorator(
-    target: Function,
-    context: ClassMethodDecoratorContext
-  ) {
-    return function replacementMethod(this: any, ...args: any[]) {
-      const name =
-        stepName || `${this.constructor.name}.${context.name as string}`;
-      return test.step(name, async () => {
-        return await target.call(this, ...args);
+  return function (target: any, context: any) {
+    return async function (this: any, ...args: any[]) {
+      const name = stepName || context.name;
+
+      return await allure.step(name, async () => {
+        const result = await target.apply(this, args);
+
+        const page: Page | undefined = this.page;
+
+        if (page) {
+          const screenshot = await page.screenshot({ fullPage: true });
+
+          await allure.attachment(
+            `${name} Screenshot`,
+            screenshot,
+            "image/png"
+          );
+        }
+
+        return result;
       });
     };
   };

@@ -10,7 +10,7 @@ import { dot } from "node:test/reporters";
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-const env = process.env.ENV || "qaErnie";
+const env = process.env.ENV || "qaBert";
 dotenv.config({ path: `.env.${env.toLowerCase()}`});
 
 
@@ -56,17 +56,30 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: { ...devices["Desktop Chrome"] ,
+      headless: false,
+      viewport: { width: 1530, height: 730 },
+      deviceScaleFactor: 1,
+      },
+      
     },
 
     // {
     //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
+    //   use: { ...devices['Desktop Firefox'] ,
+    //     headless: false,
+    //   viewport: { width: 1530, height: 730 },
+    //   deviceScaleFactor: 1,
+    //   },
     // },
 
     // {
     //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
+    //   use: { ...devices['Desktop Safari'],
+    //     headless: false,
+    //   viewport: { width: 1530, height: 730 },
+    //   deviceScaleFactor: 1,
+    //    },
     // },
 
     /* Test against mobile viewports. */

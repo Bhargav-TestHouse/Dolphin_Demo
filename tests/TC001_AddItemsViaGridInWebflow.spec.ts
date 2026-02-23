@@ -1,4 +1,4 @@
-import { chromium, expect, test } from "@playwright/test";
+import { chromium, expect, test, webkit } from "@playwright/test";
 import { LoginPageDolphin } from "../pages/loginPageDolphin";
 import { HomePageDolphin } from "../pages/homePageDolphin";
 import { FolderSearchDolphin } from "../pages/folderSearchDolphin";
@@ -13,12 +13,13 @@ const webflowTestData = readExcelData<WebflowTestRow>(
 
 const envControl = readEnvControl(excelPath, "EnvControl");
 
-test("Add items via Grid in Webflow", async () => {
-  const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext({
-    viewport: { width: 1530, height: 730 },
-  });
-  const page = await context.newPage();
+test("Add items via Grid in Webflow", async ({ page }) => {
+  // const browser = await chromium.launch({ headless: false });
+  // //const browser = await webkit.launch({headless:false})
+  // const context = await browser.newContext({
+  //   viewport: { width: 1530, height: 730 },
+  // });
+  // const page = await context.newPage();
 
   const loginPageDolphin = new LoginPageDolphin(page);
   const homePageDolphin = new HomePageDolphin(page);
